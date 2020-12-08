@@ -1,2 +1,2 @@
 class CodeParser:
-   pass
+    pass

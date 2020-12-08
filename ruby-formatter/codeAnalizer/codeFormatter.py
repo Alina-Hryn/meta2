@@ -1,3 +1,2 @@
 class CodeFormatter:
-
     pass

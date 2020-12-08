@@ -6,5 +6,5 @@ class FilesParser:
         pass
 
     @staticmethod
-    def get_line_from_list(lexems):
-        return ' '.join(lexems)
+    def get_line_from_list(lexemes):
+        return ' '.join(lexemes)
