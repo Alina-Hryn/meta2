@@ -1,2 +1,2 @@
-class codeParser:
+class CodeParser:
    pass

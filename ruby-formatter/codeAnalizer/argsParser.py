@@ -1,7 +1,7 @@
 import argparse
 
 
-class argsParser:
+class ArgsParser:
     pass
 
     def parse_args(self):
@@ -20,5 +20,5 @@ class argsParser:
 
 if __name__ == '__main__':
     print('print -h/--help for help')
-    a = argsParser()
+    a = ArgsParser()
     a.parse_args()
