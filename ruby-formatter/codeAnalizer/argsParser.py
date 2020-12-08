@@ -13,11 +13,9 @@ class argsParser:
         parser.add_argument('-v', '--verify', help='verify of code correctness', default=True)
 
         args = parser.parse_args()
-        args_dict = vars(args)
+        args_dictionary = vars(args)
 
-        if len(args_dict) == 0:
-            print('Wrong usage')
-        return args_dict
+        return args_dictionary
 
 
 if __name__ == '__main__':
