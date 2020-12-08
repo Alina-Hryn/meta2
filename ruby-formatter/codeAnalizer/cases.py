@@ -24,3 +24,19 @@ def is_ruby_file(name):
     if name.endswith(file_extension):
         return True
     return False
+
+
+def is_snake_case(token):
+    if token.islower():
+        return True
+    else:
+        for upper_word in uppercase_words_part:
+            if upper_word in token:
+                token = token.replace(upper_word, '')
+                is_snake_case(token)
+        return False
+
+
+def is_camel_case(token):
+    if '_' in token:
+        return False
