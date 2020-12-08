@@ -7,6 +7,8 @@ keywords = ('__ENCODING__', '__LINE__', '__FILE__', 'BEGIN', 'END', 'alias', 'an
 operators = ('=', '==', '!=', '<', '<=', '>', '>=', '+', '+', '-', '*', '/', '**', '==', '>', '<',
              '|', '&', '^', 'eql?', 'equal?', '<<', '[]', '===')
 
+punctuation = ('[', ']', '(', ')', ',', ';', '::', ':', '.', '?', '{', '}', '\0')
+
 
 def is_keyword(token):
     if token in keywords:
@@ -37,6 +39,19 @@ def is_snake_case(token):
         return False
 
 
+# TODO
 def is_camel_case(token):
     if '_' in token:
         return False
+
+
+def get_list_from_line(line):
+    for operator in operators():
+        line.replace(operator, ' ' + operator + ' ')
+    for punct in punctuation:
+        line.replace(punct, ' ' + punct + ' ')
+    return line.strip(' ')
+
+
+def get_line_from_list(lexemes):
+    return ' '.join(lexemes)

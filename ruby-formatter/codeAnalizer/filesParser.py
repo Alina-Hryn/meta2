@@ -1,10 +1,14 @@
+from codeAnalizer.cases import operators, punctuation
+
+
 class FilesParser:
     def __init__(self):
-        pass
+        self.file_lines = []
 
-    def get_list_from_line(self, line):
-        pass
+    def read_file(self, file_name):
+        f = open(file_name, "r")
+        print(f.readline())
+        for line in f:
+            self.file_lines = line
 
-    @staticmethod
-    def get_line_from_list(lexemes):
-        return ' '.join(lexemes)
+

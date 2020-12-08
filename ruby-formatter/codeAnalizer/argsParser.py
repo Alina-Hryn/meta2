@@ -2,6 +2,9 @@ import argparse
 
 
 class ArgsParser:
+    def __init__(self):
+        self.files = []
+
 
     @staticmethod
     def parse_args():
