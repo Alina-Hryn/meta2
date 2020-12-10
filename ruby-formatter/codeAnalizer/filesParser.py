@@ -5,7 +5,7 @@ from codeAnalizer.cases import operators, punctuation, file_extension
 
 class FilesParser:
     def __init__(self, file_path=''):
-        self.file_path = file_path.replace('\\', '\\\\')
+        self.file_path = file_path
         self.file_name = os.path.basename(self.file_path)
         self.file_lines = []
         self.read_file()
@@ -35,34 +35,40 @@ class FilesParser:
         return False
 
     @staticmethod
-    def check_directory_files(directory):
-        print(directory)
+    def get_file(file):
+        if os.path.isfile(file):
+            file = FilesParser(file)
+        return file
+
+    @staticmethod
+    def get_directory_files(directory):
+        # print(directory)
         directory_files = []
-        # directory = directory.replace('\\', '\\\\')
         if os.path.isdir(directory):
             for file in os.listdir(directory):
-                file = directory + '\\' + file
+                file = directory + '/' + file
                 if os.path.isfile(file):
                     directory_files.append(FilesParser(file))
         return directory_files
 
     @staticmethod
-    def check_project_files(project, project_files=[]):
-        print(project)
-        # project_files = []
-        # directory = directory.replace('\\', '\\\\')
+    def get_project_files(project, project_files=[]):
+        # print(project)
         if os.path.isdir(project):
             for file in os.listdir(project):
                 file = project + '\\' + file
                 if os.path.isfile(file):
                     project_files.append(FilesParser(file))
                 if os.path.isdir(file):
-                    FilesParser.check_project_files(file, project_files)
+                    FilesParser.get_project_files(file, project_files)
         return project_files
 
 
-df = FilesParser.check_project_files(r'C:\Users\Alina\Desktop\ruby-formatter\meta2\examples', [])
-print(df)
-# f_parser = FilesParser(input('qwerty'))
-# f_parser.read_file()
-# C:\Users\Alina\Desktop\test.groovy
+# df = FilesParser.get_project_files('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples')
+# df[0].show_file()
+
+# file1 = FilesParser.get_file('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb')
+# print(file1.show_file())
+
+# file = FilesParser("C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb")
+
