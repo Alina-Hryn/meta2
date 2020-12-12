@@ -1,4 +1,4 @@
-You can do this, or start each line in
+=begin You can do this, or start each line in
 a multi-line comment with the # character.
 =end
 
