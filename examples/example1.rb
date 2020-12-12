@@ -7,7 +7,7 @@ a multi-line comment with the # character.
 3.class #=> Integer
 
 # ...and strings...
-"Hello".class #=> String
+"Hello world".class    #=> String
 
 # ...and even methods!
 "Hello".method(:class).class #=> Method
@@ -19,3 +19,14 @@ a multi-line comment with the # character.
 35 / 5 #=> 7
 2 ** 5 #=> 32
 5 % 3 #=> 2
+
+class Foo
+  def self::some_method
+  end
+end
+
+# good
+class Foo
+  def self.some_method1
+  end
+end
