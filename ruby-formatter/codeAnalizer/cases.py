@@ -46,12 +46,16 @@ def is_camel_case(token):
 
 
 def get_list_from_line(line):
-    for operator in operators():
-        line.replace(operator, ' ' + operator + ' ')
+    for operator in operators:
+        line = line.replace(operator, ' ' + operator + ' ')
     for punct in punctuation:
-        line.replace(punct, ' ' + punct + ' ')
-    return line.strip(' ')
+        line = line.replace(punct, ' ' + punct + ' ')
+    line = line.strip(' ').split(' ')
+    line = list(filter(None, line))
+    return line
 
 
 def get_string_from_list(lexemes):
     return ''.join(lexemes)
+
+

@@ -1,6 +1,8 @@
 import os
 
 from codeAnalizer.cases import operators, punctuation, file_extension
+# from codeAnalizer.codeParser import CodeParser
+from codeAnalizer.codeParser import CodeParser
 
 
 class FilesParser:
@@ -67,8 +69,10 @@ class FilesParser:
 # df = FilesParser.get_project_files('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples')
 # df[0].show_file()
 
-# file1 = FilesParser.get_file('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb')
-# print(file1.show_file())
+file1 = FilesParser.get_file('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb')
+# print(file1.file_lines)
+cp = CodeParser(file1.file_lines)
+
 
 # file = FilesParser("C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb")
 
