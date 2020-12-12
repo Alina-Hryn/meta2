@@ -19,6 +19,7 @@ class FilesParser:
         if self.check_ruby_file(self.file_path):
             print(self.file_path)
             f = open(self.file_path, "r")
+            self.file_string = f.read()
             for line in f:
                 self.file_lines.append(line)
                 # self.show_line(line)
@@ -71,7 +72,7 @@ class FilesParser:
 
 file1 = FilesParser.get_file('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb')
 # print(file1.file_lines)
-cp = CodeParser(file1.file_lines)
+cp = CodeParser(file1.file_string, file1.file_lines)
 
 
 # file = FilesParser("C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb")
