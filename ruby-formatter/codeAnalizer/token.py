@@ -48,11 +48,14 @@ class Token:
         words = ['is', 'can', 'does', 'do']
         if self.token_type == TokenType.METHOD:
             for word in words:
-                word += '_'
-                if self.new_value.startswith(word):
-                    self.new_value = self.new_value.replace(word, '')
-                    if not self.new_value.endswith('?'):
-                        self.new_value += '?'
+                is_w = False
+                if self.new_value.startswith(word + '_'):
+                    self.new_value = self.new_value.replace(word + '_', '')
+                    if self.value.endswith('?'):
+                        self.value = self.value.replace('?', '')
+                        self.new_value = self.new_value.replace('?', '')
+                    else:
+                        self.new_value = self.new_value + '?'
 
     def make_snake_case(self):
         self.lowcase_acronyms()
@@ -61,7 +64,7 @@ class Token:
         while i < len(self.value):
             if self.value[i].isupper():
                 new_value += '_' + self.value[i].swapcase()
-                if i < len(self.value) -1:
+                if i < len(self.value) - 1:
                     i += 1
             if self.value[i - 1] == '_':
                 new_value += self.value[i].lower()
@@ -77,6 +80,7 @@ class Token:
         for word in uppercase_words_part:
             if re.search(word.lower(), self.new_value):
                 self.new_value = re.sub('(?i)' + word, word.upper(), self.new_value)
+
     def lowcase_acronyms(self):
         for word in uppercase_words_part:
             if re.search(word, self.value, flags=re.IGNORECASE):
