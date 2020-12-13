@@ -80,12 +80,6 @@ class CodeParser:
         self.file_string = re.sub(";", "\n", self.file_string)
         self.file_string = re.sub(r"self(::|.)?", "", self.file_string)
         self.file_string = re.sub("^(\s)*", "", self.file_string)
-        # file_string = self.file_string
-        # for k in keywords:
-        #     file_string = re.sub(r"(?<![@$0-9a-zA-Z_])(" + k + ")(?![0-9a-zA-Z_!])", '', file_string)
-        # for punct in punctuation:
-        #     file_string = file_string.replace(punct, '')
-        # self.file_string = file_string
 
     def make_list_from_file(self):
         self.lines = self.file_string.split('\n')

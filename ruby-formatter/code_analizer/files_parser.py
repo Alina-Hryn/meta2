@@ -3,7 +3,6 @@ import os
 from code_analizer.cases import operators, punctuation, file_extension
 # from codeAnalizer.codeParser import CodeParser
 from code_analizer.code_formatter import CodeFormatter
-from code_analizer.code_parser import CodeParser
 
 
 class FilesParser:
@@ -56,11 +55,10 @@ class FilesParser:
         return directory_files
 
     @staticmethod
-    def get_project_files(project, project_files=[]):
-        # print(project)
+    def get_project_files(project, project_files = []):
         if os.path.isdir(project):
             for file in os.listdir(project):
-                file = project + '\\' + file
+                file = project + '/' + file
                 if os.path.isfile(file):
                     project_files.append(FilesParser(file))
                 if os.path.isdir(file):
@@ -71,10 +69,17 @@ class FilesParser:
 # df = FilesParser.get_project_files('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples')
 # df[0].show_file()
 
-file1 = FilesParser.get_file('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb')
+# file1 = FilesParser.get_file('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb')
 # print(file1.file_lines)
 # cp = CodeParser(file1.file_string)
-cf = CodeFormatter(file1.file_string)
+
+files = FilesParser.get_directory_files("C:/Users/Alina/Desktop/ruby-formatter/meta2/examples")
+for file in files:
+    print(file.file_string)
+    cf = CodeFormatter(file.file_string)
+
+
+# cf = CodeFormatter(file1.file_string)
 # cf.replace_lexeme_in_file('some_method', 'some_m')
 # file = FilesParser("C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb")
 

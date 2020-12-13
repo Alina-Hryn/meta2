@@ -8,6 +8,7 @@ class CodeFormatter:
         self.file_string = file_string
         code_parser = CodeParser(file_string)
         self.tokens = code_parser.tokens
+        self.replace_lexemes_in_file()
 
     def replace_lexemes_in_file(self):
         for token in self.tokens:
