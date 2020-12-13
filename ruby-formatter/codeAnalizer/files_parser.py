@@ -1,9 +1,9 @@
 import os
 
-from codeAnalizer.cases import operators, punctuation, file_extension
+from code_analizer.cases import operators, punctuation, file_extension
 # from codeAnalizer.codeParser import CodeParser
-from codeAnalizer.codeFormatter import CodeFormatter
-from codeAnalizer.codeParser import CodeParser
+from code_analizer.code_formatter import CodeFormatter
+from code_analizer.code_parser import CodeParser
 
 
 class FilesParser:

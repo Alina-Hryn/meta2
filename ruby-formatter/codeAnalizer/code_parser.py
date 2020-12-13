@@ -1,7 +1,7 @@
-from codeAnalizer.cases import get_list_from_line, keywords, punctuation, is_keyword
+from code_analizer.cases import get_list_from_line, keywords, punctuation, is_keyword
 import re
 
-from codeAnalizer.token import Token, TokenType
+from code_analizer.token import Token, TokenType
 
 
 class CodeParser:

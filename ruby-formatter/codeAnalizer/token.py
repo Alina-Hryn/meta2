@@ -1,7 +1,7 @@
 import re
 from enum import Enum
 
-from codeAnalizer.cases import uppercase_words_part
+from code_analizer.cases import uppercase_words_part
 
 
 class TokenType(Enum):

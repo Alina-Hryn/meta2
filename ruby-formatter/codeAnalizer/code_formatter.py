@@ -1,6 +1,6 @@
 import re
 
-from codeAnalizer.codeParser import CodeParser
+from code_analizer.code_parser import CodeParser
 
 
 class CodeFormatter:
