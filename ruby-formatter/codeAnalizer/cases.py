@@ -1,9 +1,9 @@
 import re
 
 file_extension = '.rb'
-uppercase_words_part = ('HTTP', 'RFC', 'XML')
+uppercase_words_part = ('HTTP', 'RFC', 'XML', 'HTML')
 keywords = ('__ENCODING__', '__LINE__', '__FILE__', 'BEGIN', 'END', 'alias', 'and', 'begin', 'break',
-            'case', 'class', 'def', 'defined?', 'do', 'else', 'elsif', 'end', 'ensure', 'false', 'for',
+            'case', 'defined?', 'do', 'else', 'elsif', 'end', 'ensure', 'false', 'for',
             'if', 'in', 'module', 'next', 'nil', 'not', 'or', 'redo', 'rescue', 'retry', 'return', 'self',
             'super', 'then', 'true', 'undef', 'unless', 'until', 'when', 'while', 'yield')
 operators = ('eql?', 'equal?', '==', '=', '!=', '<', '<=', '>', '>=', '+', '+', '-', '*', '/', '**', '==',
