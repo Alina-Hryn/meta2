@@ -73,8 +73,8 @@ class FilesParser:
 
 file1 = FilesParser.get_file('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb')
 # print(file1.file_lines)
-cp = CodeParser(file1.file_string, file1.file_lines)
+# cp = CodeParser(file1.file_string)
 cf = CodeFormatter(file1.file_string)
-cf.replace_lexeme_in_file('some_method', 'some_m')
+# cf.replace_lexeme_in_file('some_method', 'some_m')
 # file = FilesParser("C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb")
 

@@ -5,12 +5,12 @@ from codeAnalizer.token import Token, TokenType
 
 
 class CodeParser:
-    def __init__(self, file_string, lines):
+    def __init__(self, file_string):
         self.file_string = file_string
-        self.lines = lines
+        self.lines = []
         self.lexemes = []
-        self.make_lexems()
         self.tokens = []
+        self.make_lexems()
 
     def make_lexems(self):
         self.remove_comments()
@@ -20,23 +20,22 @@ class CodeParser:
             token = self.search_incorrect_lexeme(self.lexemes[-1])
             if token is not None:
                 token.run()
-                print('\t\t\t\t\t\t\t\t\t\t\t\t\t' + str(token.new_value))
-            print(line)
-        print(self.lexemes)
+                self.tokens.append(token)
+            # print(line)
+        # print(self.lexemes)
 
     def search_incorrect_lexeme(self, line):
         token = Token()
         token_type = None
         if line[0].lower() == 'def':
             # result = re.match('^(@@?|$)?[a-zA-Z0-9_]+(\?|!)?$', line[1])
-            result = re.match('^[a-zA-Z_][a-zA-Z0-9_]+(\?|!)?$', line[1])
+            result = re.match('^[a-z_][a-zA-Z0-9_]+(!|\?)?$', line[1])
             if not result:
-                result = re.match('^[a-zA-Z0-9_]+(\?|!)?$', line[1])
+                result = re.match('^[a-zA-Z_][a-zA-Z0-9_]+(!|\?)?$', line[1])
                 if result:
                     value = line[1]
                     token_type = TokenType.METHOD
-                    return token
-                    print("OK def")
+                    return token  # print("OK def")
             else:
                 value = line[1]
                 token_type = TokenType.METHOD
@@ -46,13 +45,11 @@ class CodeParser:
                 result = re.match('^[a-zA-Z0-9_]+$', line[1])
                 if result:
                     value = line[1]
-                    token_type = TokenType.CLASS
-                    print('OK class')
+                    token_type = TokenType.CLASS  # print('OK class')
             else:
                 value = line[1]
                 token_type = TokenType.CLASS
         else:
-            # print('\t \t \t' + line[0])
             result = re.match('^(\@\@?|\$)?[a-z_][a-z0-9_]*$', line[0])
             if not is_keyword(line[0]):
                 if (len(line) == 1 or line[1] == '=') and not result:
@@ -60,8 +57,7 @@ class CodeParser:
                         result = re.match('^(\@\@?|\$)?[a-zA-Z_][a-zA-Z0-9_]*$', line[0])
                         if result:
                             value = line[0]
-                            token_type = TokenType.VAR
-                            print('OK var')
+                            token_type = TokenType.VAR  # print('OK var')
                     result = re.match('^(\@\@?|\$)?[A-Z][A-Z0-9_]*$', line[0])
                     if result:
                         value = line[0]

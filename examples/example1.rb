@@ -31,12 +31,15 @@ end
 def sethtmlGod
 end
 
-def isDoctor
+def isDoctort
 end
 
-def isDoctor?
+def is_Doctor?
 end
-
+def is_doctor?
+    def isDoctor?
+        def doctor?
+            def is_Doctor?  
 # good
 class FooHtml
   def self.some_method1
