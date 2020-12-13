@@ -20,7 +20,9 @@ a multi-line comment with the # character.
 2 ** 5 #=> 32
 5 % 3 #=> 2
 
-class Foo
+aresf_345
+
+class Foo_
   def self::some_method
   end
 end
@@ -36,8 +38,14 @@ class AliasObject
   attr_reader :bar
   attr_accessor :baz
 
-  def prep; @foo = 3; @bar = 4; end
+  def prep; @foo = 3; $bar = 4; end
   def value; 5; end
   def false_value; 6; end
   def self.klass_method; 7; end
 end
+
+it "can override an existing global variable and make them synonyms" do
+    code = $a = 1; $b = 2; $b $a; p [$a, $b]; $b = 3
+    ruby_exe(code).should == "[1, 1]\n[3, 3]\n"
+end
+
