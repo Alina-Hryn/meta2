@@ -8,6 +8,7 @@ class TokenType(Enum):
     CLASS = 1
     VAR = 2
     METHOD = 3
+    CONSTRAINT = 3
 
 
 class Token:
@@ -29,12 +30,7 @@ class Token:
             else:
                 new_value += self.value[i]
             i += 1
-
-        for word in uppercase_words_part:
-            if re.search(word, new_value, re.IGNORECASE):
-                new_value = re.sub(word, word.upper(), new_value, flags=re.IGNORECASE)
         self.new_value = new_value
-
 
     def make_snake_case(self):
         new_value = self.value[0].lower()
@@ -48,7 +44,9 @@ class Token:
             else:
                 new_value += self.value[i]
             i += 1
+        self.new_value = new_value
 
+    def capitalize_acronyms(self):
         for word in uppercase_words_part:
-            if re.search(word, new_value, re.IGNORECASE):
-                new_value = re.sub(word, word.upper(), new_value, flags=re.IGNORECASE)
+            if re.search(word, self.new_value, re.IGNORECASE):
+                self.new_value = re.sub(word, word.upper(), self.new_value, flags=re.IGNORECASE)
