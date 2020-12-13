@@ -30,3 +30,14 @@ class Foo
   def self.some_method1
   end
 end
+
+class AliasObject
+  attr :foo
+  attr_reader :bar
+  attr_accessor :baz
+
+  def prep; @foo = 3; @bar = 4; end
+  def value; 5; end
+  def false_value; 6; end
+  def self.klass_method; 7; end
+end
