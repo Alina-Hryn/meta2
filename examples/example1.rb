@@ -20,18 +20,29 @@ a multi-line comment with the # character.
 2 ** 5 #=> 32
 5 % 3 #=> 2
 
-aresf_345
-
-class Foo_
+class Foo___
   def self::some_method
   end
 end
 
+def htmlGod
+end
+
+def sethtmlGod
+end
+
+def isDoctor
+end
+
+def isDoctor?
+end
+
 # good
-class Foo
+class FooHtml
   def self.some_method1
   end
 end
+CONSTANTA_H = 5
 
 class AliasObject
   attr :foo

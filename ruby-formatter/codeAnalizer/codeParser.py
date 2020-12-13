@@ -29,7 +29,7 @@ class CodeParser:
         token_type = None
         if line[0].lower() == 'def':
             # result = re.match('^(@@?|$)?[a-zA-Z0-9_]+(\?|!)?$', line[1])
-            result = re.match('^[a-z0-9_]+(\?|!)?$', line[1])
+            result = re.match('^[a-zA-Z_][a-zA-Z0-9_]+(\?|!)?$', line[1])
             if not result:
                 result = re.match('^[a-zA-Z0-9_]+(\?|!)?$', line[1])
                 if result:
