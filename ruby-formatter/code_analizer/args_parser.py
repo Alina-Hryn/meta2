@@ -1,7 +1,8 @@
 import argparse
 
-from .code_formatter import CodeFormatter
-from .files_parser import FilesParser
+from code_analizer.cases import get_file_names
+from code_analizer.code_formatter import CodeFormatter
+from code_analizer.files_parser import FilesParser
 
 
 class ArgsParser:
@@ -10,7 +11,7 @@ class ArgsParser:
 
     @staticmethod
     def parse_args():
-        parser = argparse.ArgumentParser(description='ruby code analizer', add_help=True)
+        parser = argparse.ArgumentParser(description='ruby code analyzer', add_help=True)
         parser.add_argument('-f', '--file', help='check file')
         parser.add_argument('-d', '--directory', help='check directory')
         parser.add_argument('-p', '--project', help='check project')
@@ -19,48 +20,28 @@ class ArgsParser:
 
         args = parser.parse_args()
         args_dictionary = vars(args)
-        # print(vars(args).get("directory"))
-        # print(vars(args).get("project"))
-        # print(vars(args).get("fix"))
-        # print(vars(args).get("verify"))
-        # print(args_dictionary)
         return args_dictionary
 
     @staticmethod
     def define_item(my_dict):
-        my_list = []
-
+        file_path = ''
+        verify, fix = False, False
         if my_dict['file'] is not None:
-            my_list.append('file')
-            my_list.append(my_dict['file'])
-
+            file_path = my_dict['file']
+            files = FilesParser.get_file(file_path)
         if my_dict['directory'] is not None:
-            my_list.append('directory')
-            my_list.append(my_dict['directory'])
-            files = FilesParser.get_directory_files("C:/Users/Alina/Desktop/ruby-formatter/meta2/examples")
-            for file in files:
-                print(file.file_string)
-                cf = CodeFormatter(file.file_string)
-
+            file_path = my_dict['directory']
+            files = FilesParser.get_directory_files(file_path)
         if my_dict['project'] is not None:
-            my_list.append('project')
-            my_list.append(my_dict['project'])
-
+            file_path = my_dict['project']
+            files = FilesParser.get_project_files(file_path)
         if my_dict['verify'] is not None:
-            my_list.append('verify')
-            my_list.append(my_dict['verify'])
+            verify = my_dict['verify']
 
         if my_dict['fix'] is not None:
-            my_list.append('fix')
-            my_list.append(my_dict['fix'])
-
-        return my_list
-
-
-if __name__ == '__main__':
-    print('print -h/--help for help')
-    a = ArgsParser()
-    k = a.parse_args()
-    print(k)
-    my_list = ArgsParser.define_item(k)
-    print(my_list)
+            fix = my_dict['fix']
+        for file in files:
+            if file is not None:
+                names = get_file_names(file.file_path, file_path)
+                print('path:', names)
+                cf = CodeFormatter(file, verify, fix, names)

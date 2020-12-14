@@ -2,7 +2,7 @@ import os
 
 from code_analizer.cases import operators, punctuation, file_extension
 # from codeAnalizer.codeParser import CodeParser
-from code_analizer.code_formatter import CodeFormatter
+from code_analizer.code_parser import CodeParser
 
 
 class FilesParser:
@@ -13,11 +13,10 @@ class FilesParser:
         self.read_file()
 
     def __str__(self):
-        print(str(self.file_name))
+        print(str(self.file_path))
 
     def read_file(self):
-        if self.check_ruby_file(self.file_path):
-            print(self.file_path)
+        if FilesParser.check_ruby_file(self.file_path):
             f = open(self.file_path, "r")
             self.file_string = f.read()
             for line in f:
@@ -31,7 +30,8 @@ class FilesParser:
     def show_line(self, line):
         print(self.file_name + ': ' + line)
 
-    def check_ruby_file(self, file_path):
+    @staticmethod
+    def check_ruby_file(file_path):
         if file_path.endswith(file_extension):
             # if file_path.endswith('.groovy'):
             return True
@@ -39,9 +39,13 @@ class FilesParser:
 
     @staticmethod
     def get_file(file):
-        if os.path.isfile(file):
-            file = FilesParser(file)
-        return file
+        file_p =[]
+        if os.path.isfile(file) and FilesParser.check_ruby_file(file):
+            file_p.append(FilesParser(file))
+        else:
+            file_p.append(None)
+            print("It is not Ruby file! Try again.")
+        return file_p
 
     @staticmethod
     def get_directory_files(directory):
@@ -50,7 +54,7 @@ class FilesParser:
         if os.path.isdir(directory):
             for file in os.listdir(directory):
                 file = directory + '/' + file
-                if os.path.isfile(file):
+                if os.path.isfile(file) and FilesParser.check_ruby_file(file):
                     directory_files.append(FilesParser(file))
         return directory_files
 
@@ -59,27 +63,10 @@ class FilesParser:
         if os.path.isdir(project):
             for file in os.listdir(project):
                 file = project + '/' + file
-                if os.path.isfile(file):
+                if os.path.isfile(file) and FilesParser.check_ruby_file(file):
                     project_files.append(FilesParser(file))
                 if os.path.isdir(file):
                     FilesParser.get_project_files(file, project_files)
         return project_files
 
-
-# df = FilesParser.get_project_files('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples')
-# df[0].show_file()
-
-# file1 = FilesParser.get_file('C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb')
-# print(file1.file_lines)
-# cp = CodeParser(file1.file_string)
-
-files = FilesParser.get_directory_files("C:/Users/Alina/Desktop/ruby-formatter/meta2/examples")
-for file in files:
-    print(file.file_string)
-    cf = CodeFormatter(file.file_string)
-
-
-# cf = CodeFormatter(file1.file_string)
-# cf.replace_lexeme_in_file('some_method', 'some_m')
-# file = FilesParser("C:/Users/Alina/Desktop/ruby-formatter/meta2/examples/example1.rb")
 
