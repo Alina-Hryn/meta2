@@ -51,10 +51,7 @@ class Token:
                 is_w = False
                 if self.new_value.startswith(word + '_'):
                     self.new_value = self.new_value.replace(word + '_', '')
-                    if self.value.endswith('?'):
-                        self.value = self.value.replace('?', '')
-                        self.new_value = self.new_value.replace('?', '')
-                    else:
+                    if not self.value.endswith('?'):
                         self.new_value = self.new_value + '?'
 
     def make_snake_case(self):
