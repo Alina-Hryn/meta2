@@ -71,8 +71,6 @@ class CodeParser:
             return token
         return None
 
-
-
     def remove_comments(self):
         self.file_string = re.sub(r"('.*')|(\".*\")", "'STRING'", self.file_string)
         self.file_string = re.sub(r"=begin(.|\n)+?=end", "'MULTILINE_COMMENT'", self.file_string)
@@ -84,5 +82,3 @@ class CodeParser:
     def make_list_from_file(self):
         self.lines = self.file_string.split('\n')
         self.lines = list(filter(None, self.lines))
-        # line = line.strip(' ').split(' ')
-        # line = list(filter(None, line))

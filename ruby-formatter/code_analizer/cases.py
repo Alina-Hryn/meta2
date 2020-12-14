@@ -43,3 +43,15 @@ def get_list_from_line(line):
 
 def get_string_from_list(lexemes):
     return ''.join(lexemes)
+
+
+def diff(li1, li2):
+    return list(list(set(li1) - set(li2)) + list(set(li2) - set(li1)))
+
+
+def get_file_names(f1, f2):
+    f1 = f1.replace('\\', '/')
+    f1 = f1.split('/')
+    f2 = f2.replace('\\', '/')
+    f2 = f2.split('/')[:-1]
+    return diff(f1, f2)

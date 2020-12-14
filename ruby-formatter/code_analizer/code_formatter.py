@@ -4,12 +4,15 @@ from code_analizer.code_parser import CodeParser
 
 
 class CodeFormatter:
-    def __init__(self, file_string):
-        self.file_string = file_string
-        code_parser = CodeParser(file_string)
+    def __init__(self, file, verify, fix, file_names):
+        self.file_string = file.file_string
+        code_parser = CodeParser(file.file_string)
         self.tokens = code_parser.tokens
-        # self.replace_lexemes_in_file()
-        self.find_lexeme_in_file()
+        self.file_names = file_names
+        if verify:
+            self.find_lexeme_in_file()
+        if fix:
+            self.replace_lexemes_in_file()
 
     def replace_lexemes_in_file(self):
         for token in self.tokens:
@@ -29,4 +32,3 @@ class CodeFormatter:
                     if res:
                         print(token.value, line, n)
 
-        # self.file_string = re.sub(r"(?<![0-9a-zA-Z_])(" + lexeme + ")(?![0-9a-zA-Z_])", replaceTo, self.file_string)
