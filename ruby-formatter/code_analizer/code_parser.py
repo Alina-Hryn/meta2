@@ -17,57 +17,44 @@ class CodeParser:
         self.make_list_from_file()
         for id, line in enumerate(self.lines):
             self.lexemes.append(get_list_from_line(line))
-            token = self.search_incorrect_lexeme(self.lexemes[-1])
+            prev_line = [] if len(self.lexemes) == 1 else self.lexemes[-2]
+            token = self.search_incorrect_lexeme(self.lexemes[-1], prev_line)
             if token is not None:
                 token.run()
                 self.tokens.append(token)
             # print(line)
-        # print(self.lexemes)
+        print(self.lexemes)
 
-    def search_incorrect_lexeme(self, line):
+    def search_incorrect_lexeme(self, line, prev_line):
         token = Token()
         token_type = None
         if line[0].lower() == 'def':
-            # result = re.match('^(@@?|$)?[a-zA-Z0-9_]+(\?|!)?$', line[1])
-            result = re.match('^[a-z_][a-zA-Z0-9_]+(!|\?)?$', line[1])
-            if not result:
-                result = re.match('^[a-zA-Z_][a-zA-Z0-9_]+(!|\?)?$', line[1])
-                if result:
-                    value = line[1]
-                    token_type = TokenType.METHOD
-                    return token  # print("OK def")
-            else:
+            result = re.match('^[a-zA-Z_][a-zA-Z0-9_]*(!|\?)?$', line[1])
+            if result:
                 value = line[1]
                 token_type = TokenType.METHOD
         elif line[0].lower() == 'class':
-            result = re.match('^[a-zA-Z0-9]+$', line[1])
-            if not result:
-                result = re.match('^[a-zA-Z0-9_]+$', line[1])
-                if result:
+            result = re.match('^[a-zA-Z_][a-zA-Z0-9]*$', line[1])
+            if result:
                     value = line[1]
-                    token_type = TokenType.CLASS  # print('OK class')
-            else:
-                value = line[1]
-                token_type = TokenType.CLASS
+                    token_type = TokenType.CLASS
         else:
-            result = re.match('^(\@\@?|\$)?[a-z_][a-z0-9_]*$', line[0])
+            result = re.match('^(\@\@?|\$)?[a-zA-Z_][a-zA-Z0-9_]*$', line[0])
             if not is_keyword(line[0]):
-                if (len(line) == 1 or line[1] == '=') and not result:
-                    if not result:
-                        result = re.match('^(\@\@?|\$)?[a-zA-Z_][a-zA-Z0-9_]*$', line[0])
-                        if result:
-                            value = line[0]
-                            token_type = TokenType.VAR  # print('OK var')
+                if (len(line) == 1 or line[1] == '=') and result:
+                    value = line[0]
+                    token_type = TokenType.VAR
                     result = re.match('^(\@\@?|\$)?[A-Z][A-Z0-9_]*$', line[0])
                     if result:
                         value = line[0]
                         token_type = TokenType.CONSTRAINT
-                elif (len(line) == 1 or line[1] == '=') and result:
-                    value = line[0]
-                    token_type = TokenType.VAR
-        if token_type != None:
+
+        if token_type is not None:
             token.value = value
             token.token_type = token_type
+            needed = [TokenType.CLASS, TokenType.METHOD]
+            if token_type in needed and (not prev_line or prev_line[0] != "'ONE_LINE_COMMENT'"):
+                token.need_annotation = True
             return token
         return None
 
