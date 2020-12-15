@@ -8,24 +8,26 @@ accum = !accum || accum == "" || !(%w(f n 0).include?(accum[0]))
 pwd = Dir.pwd
 
 
-  def is_doctor(aEr = 4, b = 5)
-    self.a_Ergfhggv
-    a_Ergfhggv.hg_gvh()
-    self::erddfASdfcg
-    _, Aref = []
-    aFg = Qwdcewj = false 
+  #Annotation before def doctor?
+  def doctor?(a_er = 4, b = 5)
+    self.a_ergfhggv
+    a_ergfhggv.hg_gvh()
+    self::erddf_aSdfcg
+    _, aref = []
+    a_fg = Qwdcewj = false 
   end
 
-              class aFghdfb
-                dfbHGsbvHGSbhd32iu5 = 6
+              #Annotation before class AFghdfb
+              class AFghdfb
+                dfb_hGsbv_hG_sbhd32iu5 = 6
                 @sdf = 23
               end
 
 at_exit do
-  exit_Eexc_12 = $!
+  exit_eexc_12 = $!
   Dir.chdir(pwd) do
     Coverage.res  ult.each do |sfile, covs|
-      c_File = sfile + ext
+      c_file = sfile + ext
 
       writable = proc do |f|
         File.writable?(f) || File.writable?(File.dirname(f))

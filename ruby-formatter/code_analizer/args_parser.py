@@ -1,6 +1,7 @@
 import argparse
+import os
 
-from code_analizer.cases import get_file_names
+from code_analizer.cases import get_folder_names
 from code_analizer.code_formatter import CodeFormatter
 from code_analizer.files_parser import FilesParser
 
@@ -26,22 +27,18 @@ class ArgsParser:
     def define_item(my_dict):
         file_path = ''
         verify, fix = False, False
-        if my_dict['file'] is not None:
-            file_path = my_dict['file']
-            files = FilesParser.get_file(file_path)
-        if my_dict['directory'] is not None:
-            file_path = my_dict['directory']
-            files = FilesParser.get_directory_files(file_path)
-        if my_dict['project'] is not None:
-            file_path = my_dict['project']
-            files = FilesParser.get_project_files(file_path)
+        dict_f = ['file', 'directory', 'project']
+        for name in dict_f:
+            if my_dict[name] is not None:
+                file_path = my_dict[name]
+                files = FilesParser.get_file(file_path)
         if my_dict['verify'] is not None:
             verify = my_dict['verify']
-
         if my_dict['fix'] is not None:
             fix = my_dict['fix']
         for file in files:
             if file is not None:
-                names = get_file_names(file.file_path, file_path)
+                names = get_folder_names(file.file_path, file_path)
+                directory_for_verification = os.path.dirname(file_path)
                 print('path:', names)
-                cf = CodeFormatter(file, verify, fix, names)
+                CodeFormatter.run(file, verify, fix, names)
