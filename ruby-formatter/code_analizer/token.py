@@ -13,10 +13,11 @@ class TokenType(Enum):
 
 
 class Token:
-    def __init__(self, value='', token_type=TokenType.DEFAULT):
+    def __init__(self, value='', token_type=TokenType.DEFAULT, need_annotation=False):
         self.value = value
         self.new_value = ""
         self.token_type = token_type
+        self.need_annotation = need_annotation
 
     def run(self):
         if self.token_type == TokenType.VAR or self.token_type == TokenType.METHOD:
@@ -76,9 +77,12 @@ class Token:
     def capitalize_acronyms(self):
         for word in uppercase_words_part:
             if re.search(word.lower(), self.new_value):
-                self.new_value = re.sub('(?i)' + word, word.upper(), self.new_value)
+                self.new_value = re.sub(word.lower(), word.upper(), self.new_value)
+                print(self.new_value)
 
     def lowcase_acronyms(self):
         for word in uppercase_words_part:
             if re.search(word, self.value, flags=re.IGNORECASE):
+                print(True)
                 self.value = re.sub('(?i)' + word, word.lower(), self.value)
+                print(self.value)
