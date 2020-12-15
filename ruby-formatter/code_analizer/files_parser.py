@@ -9,6 +9,7 @@ class FilesParser:
     def __init__(self, file_path=''):
         self.file_path = file_path
         self.file_name = os.path.basename(self.file_path)
+        self.modified = file_path[:-3] + '_modified' + file_extension
         self.file_lines = []
         self.read_file()
 
