@@ -62,7 +62,9 @@ class CodeParser:
         self.file_string = re.sub(r"('.*')|(\".*\")", "'STRING'", self.file_string)
         self.file_string = re.sub(r"=begin(.|\n)+?=end", "'MULTILINE_COMMENT'", self.file_string)
         self.file_string = re.sub(r"#.+", "'ONE_LINE_COMMENT'", self.file_string)
-        self.file_string = re.sub(";", "\n", self.file_string)
+        self.file_string = re.sub("(;|,)", "\n", self.file_string)
+        self.file_string = re.sub("(def.*)(\()([^\)]*)(\))", r"\1\n\3", self.file_string)
+        self.file_string = re.sub("(def.*)\(", "\n", self.file_string)
         self.file_string = re.sub(r"self(::|.)?", "", self.file_string)
         self.file_string = re.sub("^(\s)*", "", self.file_string)
 
